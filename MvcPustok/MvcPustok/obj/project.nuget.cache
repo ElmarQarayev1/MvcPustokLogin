@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Ww9KUeldDecEvu0AfCs1G0rcTNchkvGilkShmS1zbapugrOVjeJHC8Y3wZF6eyE9wwrcDxvys1s6rxOup3hfMw==",
+  "dgSpecHash": "jP/yE05VEXApkkx3S+SMzYw3w9UYUIUmq06MXSnWiClWbg/T30zUYcUhDGZh8H0uk8cPTxLoXPPqxNv+rDEXHQ==",
   "success": true,
-  "projectFilePath": "/Users/elmar/Desktop/CodeAcademy/MVC/MvcPustokBook/MvcPustok/MvcPustok/MvcPustok.csproj",
+  "projectFilePath": "/Users/elmar/Desktop/CodeAcademy/MVC/MvcPustokLogin/MvcPustok/MvcPustok/MvcPustok.csproj",
   "expectedPackageFiles": [
     "/Users/elmar/.nuget/packages/azure.core/1.35.0/azure.core.1.35.0.nupkg.sha512",
     "/Users/elmar/.nuget/packages/azure.identity/1.10.3/azure.identity.1.10.3.nupkg.sha512",

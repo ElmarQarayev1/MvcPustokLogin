@@ -44,7 +44,7 @@ namespace MvcPustok.Areas.Manage.Controllers
 
         public IActionResult Index(int page = 1)
         {
-            var query = _context.Books.Include(x => x.Author).Include(x => x.Genre).Include(x => x.BookImages.Where(x => x.Status == true)).Include(x=>x.BookTags).ThenInclude(x=>x.Tag).OrderByDescending(x => x.Id);
+            var query = _context.Books.Include(x => x.Author).Include(x => x.Genre).Include(x => x.BookImages.Where(x => x.Status == true)).Where(x=>!x.IsDeleted).Include(x=>x.BookTags).ThenInclude(x=>x.Tag).OrderByDescending(x => x.Id);
             return View(PaginatedList<Book>.Create(query,page,3));
         }
 
@@ -205,15 +205,29 @@ namespace MvcPustok.Areas.Manage.Controllers
 
         public IActionResult Delete(int id)
         {
-            Book book = _context.Books.FirstOrDefault(m => m.Id == id);
+            Book book = _context.Books.Include(x => x.BookImages).Include(x => x.Author).Include(x => x.Genre)
+                .Include(x => x.BookTags).ThenInclude(x => x.Tag).FirstOrDefault(x => x.Id == id&& !x.IsDeleted );
 
-            if (book is null) return RedirectToAction("notfound", "error");
+            if (book == null)
+            {
+                return RedirectToAction("notfound", "error");
+            }
+            return View(book);
+        }
 
-            _context.Books.Remove(book);
+        [HttpPost]
+        public IActionResult Delete(Book book)
+        {
+            Book existBook = _context.Books.FirstOrDefault(x => x.Id == book.Id && !x.IsDeleted);
 
+            if (existBook == null)
+            {
+                return RedirectToAction("notfound", "error");
+            }
+            existBook.IsDeleted = true;
+            existBook.ModifiedAt = DateTime.UtcNow;
             _context.SaveChanges();
-
-            return RedirectToAction("Index");
+            return RedirectToAction("index");
         }
 
     }
